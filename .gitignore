@@ -11,22 +11,29 @@ venv/
 dist/
 build/
 
-# VS Code
+# IDE
 .vscode/
 .idea/
 
-# Flutter
+# Flutter Generated
 .dart_tool/
 .flutter-plugins
 .flutter-plugins-dependencies
 .packages
-build/
-*.iml
+.metadata
+pubspec.lock
+
+# Flutter Platforms (optional keep only android + ios)
+app_flutter/linux/
+app_flutter/macos/
+app_flutter/windows/
+app_flutter/web/
 
 # OS
 .DS_Store
 Thumbs.db
 
-# Backend Data
+# Backend runtime data
 backend/data/
 backend/*.db
+backend/.python-version
