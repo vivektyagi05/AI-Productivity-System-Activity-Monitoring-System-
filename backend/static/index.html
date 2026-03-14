@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FocusAI PRO MONITOR</title>
+  <link rel="stylesheet" href="/static/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="app">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">
+          <span class="logo-icon">👁</span>
+          <span class="logo-text">FocusAI<br>PRO MONITOR</span>
+        </div>
+        <button class="collapse-btn" id="collapseBtn" title="Collapse sidebar">◀</button>
+      </div>
+      <nav class="nav">
+        <a href="#dashboard" class="nav-item active" data-page="dashboard" title="Dashboard">
+          <span class="icon">🏠</span>
+          <span class="label">Dashboard</span>
+        </a>
+        <a href="#productivity" class="nav-item" data-page="productivity" title="Productivity">
+          <span class="icon">📊</span>
+          <span class="label">Productivity</span>
+        </a>
+        <a href="#security" class="nav-item" data-page="security" title="Security">
+          <span class="icon">🛡</span>
+          <span class="label">Security</span>
+        </a>
+        <a href="#reports" class="nav-item" data-page="reports" title="Reports">
+          <span class="icon">📑</span>
+          <span class="label">Reports</span>
+        </a>
+        <a href="#settings" class="nav-item" data-page="settings" title="Settings">
+          <span class="icon">⚙</span>
+          <span class="label">Settings</span>
+        </a>
+        <a href="#status" class="nav-item" data-page="status" title="System Status">
+          <span class="icon">⚡</span>
+          <span class="label">System Status</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main">
+      <!-- Top Status Bar -->
+      <header class="status-bar">
+        <div class="status-item">
+          <span class="status-dot" id="systemState"></span>
+          <span id="systemStateText">ACTIVE</span>
+        </div>
+        <div class="status-item">
+          <span>🧠 AI Engine:</span>
+          <span id="aiEngineStatus">Running</span>
+        </div>
+        <div class="status-item">
+          <span>🛡 Threat:</span>
+          <span id="threatLevel" class="badge-low">LOW</span>
+        </div>
+        <div class="status-item">
+          <span>⏱ Session:</span>
+          <span id="sessionTime">00:00:00</span>
+        </div>
+        <div class="status-item">
+          <span>🔄</span>
+          <span id="syncStatus">Synced</span>
+        </div>
+      </header>
+
+      <!-- Page: Dashboard -->
+      <section id="page-dashboard" class="page active">
+        <!-- Hero AI Card -->
+        <div class="hero-card">
+          <div class="focus-score-container">
+            <span class="focus-label">Focus Score</span>
+            <span class="focus-value" id="focusScore">0</span>
+            <span class="focus-unit">%</span>
+          </div>
+          <div class="grade-badges">
+            <span class="grade-badge" id="gradeBadge">Grade -</span>
+            <span class="grade-badge optimal">Optimal</span>
+          </div>
+          <p class="ai-insight" id="aiSuggestion">Initializing...</p>
+        </div>
+
+        <!-- Analytics Grid -->
+        <div class="analytics-grid">
+          <div class="card chart-card">
+            <h3>Top Apps This Session</h3>
+            <canvas id="topAppsChart"></canvas>
+          </div>
+          <div class="card chart-card">
+            <h3>Productivity Split</h3>
+            <canvas id="productivityChart"></canvas>
+          </div>
+          <div class="card chart-card">
+            <h3>Focus Trend (30 min)</h3>
+            <canvas id="focusTrendChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Alert Center + System Intelligence -->
+        <div class="bottom-row">
+          <div class="card alert-card">
+            <h3>Alert Center</h3>
+            <div class="alert-list" id="alertList"></div>
+          </div>
+          <div class="card metrics-card">
+            <h3>Live System Intelligence</h3>
+            <div class="metrics-grid">
+              <div class="metric">
+                <span class="metric-label">CPU</span>
+                <span class="metric-value" id="cpuUsage">0%</span>
+              </div>
+              <div class="metric">
+                <span class="metric-label">RAM</span>
+                <span class="metric-value" id="ramUsage">0%</span>
+              </div>
+              <div class="metric">
+                <span class="metric-label">Upload</span>
+                <span class="metric-value" id="networkUpload">0 KB</span>
+              </div>
+              <div class="metric">
+                <span class="metric-label">Download</span>
+                <span class="metric-value" id="networkDownload">0 KB</span>
+              </div>
+              <div class="metric">
+                <span class="metric-label">Processes</span>
+                <span class="metric-value" id="processCount">0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Page: Productivity -->
+      <section id="page-productivity" class="page">
+        <div class="card">
+          <h2>Productivity Analytics</h2>
+          <p>Daily summary, weekly trend, app ranking.</p>
+          <div class="metrics-row">
+            <div class="metric-box">
+              <span class="metric-box-value" id="deepWorkDuration">--</span>
+              <span class="metric-box-label">Deep Work</span>
+            </div>
+            <div class="metric-box">
+              <span class="metric-box-value" id="switchFrequency">--</span>
+              <span class="metric-box-label">Context Switches</span>
+            </div>
+            <div class="metric-box">
+              <span class="metric-box-value" id="idleRatio">--</span>
+              <span class="metric-box-label">Idle Ratio</span>
+            </div>
+          </div>
+          <h3>App Ranking Table</h3>
+          <table class="app-table" id="appRankingTable">
+            <thead>
+              <tr><th>#</th><th>Application</th><th>Time</th><th>Category</th><th>Score</th></tr>
+            </thead>
+            <tbody id="appRankingBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Page: Security -->
+      <section id="page-security" class="page">
+        <div class="security-grid">
+          <div class="card">
+            <h3>Network Activity</h3>
+            <canvas id="networkChart" height="120"></canvas>
+          </div>
+          <div class="card">
+            <h3>Risk Score</h3>
+            <div class="risk-score-card">
+              <span class="risk-label">Risk Score</span>
+              <span class="risk-value" id="riskScore">--</span>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Process Monitor</h3>
+          <table class="app-table process-table" id="processTable">
+            <thead>
+              <tr><th>Process</th><th>CPU %</th><th>Risk Level</th></tr>
+            </thead>
+            <tbody id="processTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Page: Reports -->
+      <section id="page-reports" class="page">
+        <div class="card">
+          <h2>Reports</h2>
+          <p>Auto-generated reports. Export as PDF.</p>
+          <button class="btn" id="exportPdf">Export Daily Report (PDF)</button>
+        </div>
+      </section>
+
+      <!-- Page: Settings -->
+      <section id="page-settings" class="page">
+        <div class="card">
+          <h2>Settings</h2>
+          <h3>Tracking Parameters</h3>
+          <div class="settings-form">
+            <div>
+              <label>Idle Threshold <span class="slider-value" id="idleValue">30s</span></label>
+              <input type="range" id="idleThreshold" min="10" max="60" value="30">
+            </div>
+            <div>
+              <label>Focus Sensitivity <span class="slider-value" id="focusValue">70%</span></label>
+              <input type="range" id="focusSensitivity" min="30" max="100" value="70">
+            </div>
+            <div>
+              <label>Alert Sensitivity <span class="slider-value" id="alertValue">50%</span></label>
+              <input type="range" id="alertSensitivity" min="20" max="100" value="50">
+            </div>
+            <div>
+              <label>Refresh Interval <span class="slider-value" id="refreshValue">3s</span></label>
+              <input type="range" id="refreshInterval" min="1" max="10" value="3">
+            </div>
+          </div>
+          <h3>Appearance</h3>
+          <div class="theme-buttons">
+            <button class="theme-btn active" data-theme="dark">Dark</button>
+            <button class="theme-btn" data-theme="darker">Darker</button>
+            <button class="theme-btn" data-theme="oled">OLED</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Page: System Status -->
+      <section id="page-status" class="page">
+        <div class="modules-grid" id="modulesGrid">
+          <div class="module-card"><span class="module-name">Tracking Engine</span><span class="module-status running">● RUNNING</span><span class="module-uptime">--</span></div>
+          <div class="module-card"><span class="module-name">AI Core</span><span class="module-status running">● RUNNING</span><span class="module-uptime">--</span></div>
+          <div class="module-card"><span class="module-name">Security Module</span><span class="module-status running">● RUNNING</span><span class="module-uptime">--</span></div>
+          <div class="module-card"><span class="module-name">Sync Engine</span><span class="module-status running">● RUNNING</span><span class="module-uptime">--</span></div>
+          <div class="module-card"><span class="module-name">Report Generator</span><span class="module-status idle">● IDLE</span><span class="module-uptime">--</span></div>
+          <div class="module-card"><span class="module-name">Network Monitor</span><span class="module-status running">● RUNNING</span><span class="module-uptime">--</span></div>
+        </div>
+        <div class="card">
+          <h3>System Log</h3>
+          <div class="system-log" id="systemLog"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="/static/app.js"></script>
+</body>
+</html>
