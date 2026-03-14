@@ -1,16 +1,32 @@
+# Python
 __pycache__/
-*.py[cod]
+*.pyc
+*.pyo
+*.pyd
 *.db
-backend/focusai.db
-backend/data/
+*.sqlite3
 .env
 .venv/
 venv/
-app_flutter/.dart_tool/
-app_flutter/build/
-backend/models
-backend/requirements.txt
-backend/.python-version
-backend/models
-backend/layers
-backend/services
+dist/
+build/
+
+# VS Code
+.vscode/
+.idea/
+
+# Flutter
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+build/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Backend Data
+backend/data/
+backend/*.db
